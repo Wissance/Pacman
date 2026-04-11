@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.WebAPI", "Wissance.Pacman.WebAPI\Wissance.Pacman.WebAPI.csproj", "{5146B1DF-A090-4B0D-ADDF-A8ABAD007ED3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.Data", "Wissance.Pacman.Data\Wissance.Pacman.Data.csproj", "{854F7017-CE36-4691-A727-821E31155933}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.Dto", "Wissance.Pacman.Dto\Wissance.Pacman.Dto.csproj", "{3928EBB3-B717-4221-B720-9BDE74D2A618}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5146B1DF-A090-4B0D-ADDF-A8ABAD007ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5146B1DF-A090-4B0D-ADDF-A8ABAD007ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5146B1DF-A090-4B0D-ADDF-A8ABAD007ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5146B1DF-A090-4B0D-ADDF-A8ABAD007ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{854F7017-CE36-4691-A727-821E31155933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{854F7017-CE36-4691-A727-821E31155933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{854F7017-CE36-4691-A727-821E31155933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{854F7017-CE36-4691-A727-821E31155933}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3928EBB3-B717-4221-B720-9BDE74D2A618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3928EBB3-B717-4221-B720-9BDE74D2A618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3928EBB3-B717-4221-B720-9BDE74D2A618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3928EBB3-B717-4221-B720-9BDE74D2A618}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
