@@ -22,32 +22,28 @@ namespace Wissance.Pacman.Data.Mappers
             builder.Property(v => v.RepositoryUrl).HasMaxLength(512);
             builder.Property(v => v.RepositoryType).HasMaxLength(32);
             builder.Property(v => v.PackageSize).IsRequired();
-            builder.Property(v => v.PackageHash).IsRequired().HasMaxLength(128);
+            builder.Property(v => v.PackageHash).IsRequired().HasMaxLength(512);
             builder.Property(v => v.PackageHashAlgorithm).IsRequired().HasMaxLength(32);
             builder.Property(v => v.IsListed).IsRequired().HasDefaultValue(true);
             builder.Property(v => v.PublishedAt).IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            // Уникальный индекс: один пакет не может иметь две одинаковых версии
+            // Unique pair package+version 
             builder.HasIndex(v => new {v.PackageId, v.Version})
-                .IsUnique()
-                .HasDatabaseName("ix_package_versions_package_id_version");
+                   .IsUnique()
+                   .HasDatabaseName("ix_package_versions_package_id_version");
 
-            // Индекс для поиска по IsListed
-            builder.HasIndex(v => v.IsListed)
-                .HasDatabaseName("ix_package_versions_is_listed");
-
-            // Связь с пакетом
+            // Listed packages
+            builder.HasIndex(v => v.IsListed).HasDatabaseName("ix_package_versions_is_listed");
+            
             builder.HasOne(v => v.Package)
                 .WithMany(p => p.Versions)
                 .HasForeignKey(v => v.PackageId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            // Связь с тегами (многие-ко-многим)
+            
             builder.HasMany(v => v.Tags)
                 .WithMany()
                 .UsingEntity(j => j.ToTable("package_version_tags"));
-
-            // Связь с зависимостями
+            
             builder.HasMany(v => v.Dependencies)
                 .WithOne()
                 // .HasForeignKey(d => d.PackageVersionId)

@@ -11,8 +11,9 @@ namespace Wissance.Pacman.Data.Mappers
             builder.ToTable("package_owners");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Name).IsRequired().HasMaxLength(256);
-            builder.Property(p => p.IsOrganization).IsRequired();
-            builder.Property(p => p.AdditionalInfo).HasColumnType("jsonb"); // Для PostgreSQL, для SQLite → "text"
+            builder.Property(p => p.IsOrganization).IsRequired().HasDefaultValue(false);
+            // target DB is Postgres and Sqlite    
+            builder.Property(p => p.AdditionalInfo).HasColumnType("jsonb");
         
             builder.HasIndex(p => p.Name);
         }

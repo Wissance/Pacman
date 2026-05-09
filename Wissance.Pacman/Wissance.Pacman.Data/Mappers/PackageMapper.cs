@@ -13,7 +13,7 @@ namespace Wissance.Pacman.Data.Mappers
             builder.Property(p => p.Name).IsRequired().HasMaxLength(256);
             builder.Property(p => p.Description).HasMaxLength(4000);
             builder.Property(p => p.CreatedAt).IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");
-            builder.Property(p => p.DeprecatedAt);
+            builder.Property(p => p.DeprecatedAt).IsRequired(false).HasDefaultValue(null);
             builder.Property(p => p.IsAvailable).IsRequired().HasDefaultValue(true);
             builder.Property(p => p.AdminUserId).IsRequired();
             
@@ -21,7 +21,7 @@ namespace Wissance.Pacman.Data.Mappers
             builder.HasIndex(p => p.IsAvailable).HasDatabaseName("ix_packages_is_available");
             builder.HasIndex(p => p.DeprecatedAt).HasDatabaseName("ix_packages_deprecated_at");
             
-            builder.HasMany(p => p.Owners).WithMany().UsingEntity(j => j.ToTable("packages_owners"));
+            builder.HasMany(p => p.Owners).WithMany().UsingEntity(j => j.ToTable("packages_package_owners"));
         }
     }
 }
