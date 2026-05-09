@@ -33,6 +33,7 @@ namespace Wissance.Pacman.Data.Entities
         public bool IsListed { get; set; }
         public DateTimeOffset PublishedAt { get; set; }
         
+        public virtual IList<PackageDependency> Dependencies { get; set; }
         public virtual IList<Tag> Tags { get; set; }
         public virtual Package Package { get; set; }
         public virtual PackageVersionStats Stats { get; set; }
