@@ -9,6 +9,13 @@ namespace Wissance.Pacman.Data.Entities
     ///     Package has its own dir = $"{Name}_{Id}"
     ///     Package sometimes become Deprecated, DeprecatedAt != null
     ///     Package could be made Available for Access, Download (IsAvailable = True)
+    ///     Schema:
+    ///     Package (1) ──────< (N) PackageVersion
+    ///        │                       │
+    ///        │                       ├── (1) PackageVersionStats
+    ///        │                       ├── (N) PackageDependency ──► (1) TargetFramework
+    ///        │                       └── (N) Tag
+    ///        └── (N) PackageOwner
     /// </summary>
     public class Package : IModelIdentifiable<Guid>
     {

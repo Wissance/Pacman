@@ -9,7 +9,7 @@ namespace Wissance.Pacman.Data.Entities
     {
         public Guid Id { get; set; }
         public Guid PackageId { get; set; }
-        public Guid PackageVersionStats { get; set; }
+        public Guid PackageVersionStatsId { get; set; }
         // Version in SemVer 2.0  format (i.e, "1.2.3-beta.1")
         public string Version { get; set; }
         
