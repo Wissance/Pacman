@@ -6,6 +6,11 @@ namespace Wissance.Pacman.Data
 {
     public class PacmanDbContext : DbContext
     {
+        public PacmanDbContext()
+        {
+            
+        }
+        
         public PacmanDbContext(DbContextOptions<PacmanDbContext> options) 
             : base(options)
         {

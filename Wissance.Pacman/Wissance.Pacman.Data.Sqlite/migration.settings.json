@@ -1,0 +1,5 @@
+{
+  "Db": {
+    "ConnStr": "Data Source=wissance_pacman.migrations.db;"
+  }
+}
