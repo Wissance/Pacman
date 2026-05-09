@@ -21,6 +21,8 @@ namespace Wissance.Pacman.Data
             modelBuilder.Entity<PackageOwner>().Map();
             modelBuilder.Entity<PackageVersionStats>().Map();
             modelBuilder.Entity<PackageDependency>().Map();
+            modelBuilder.Entity<PackageVersion>().Map();
+            modelBuilder.Entity<Package>().Map();
         }
 
         public DbSet<Package> Packages { get; set; }
