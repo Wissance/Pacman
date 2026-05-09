@@ -1,7 +1,34 @@
+using Microsoft.EntityFrameworkCore;
+using Wissance.Pacman.Data.Entities;
+using Wissance.Pacman.Data.Mappers;
+
 namespace Wissance.Pacman.Data
 {
-    public class PacmanDbContext
+    public class PacmanDbContext : DbContext
     {
+        public PacmanDbContext(DbContextOptions<PacmanDbContext> options) 
+            : base(options)
+        {
+            
+        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<Tag>().Map();
+            modelBuilder.Entity<TargetFramework>().Map();
+            modelBuilder.Entity<PackageOwner>().Map();
+            modelBuilder.Entity<PackageVersionStats>().Map();
+            modelBuilder.Entity<PackageDependency>().Map();
+        }
+
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<PackageVersion> PackageVersions { get; set; }
+        public DbSet<PackageVersionStats> PackageVersionStats { get; set; }
+        public DbSet<PackageDependency> PackageDependencies { get; set; }
+        public DbSet<PackageOwner> PackageOwners { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<TargetFramework> TargetFrameworks { get; set; }
     }
 }
