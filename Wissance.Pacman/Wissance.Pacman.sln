@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.Dto", "Wiss
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.Data.Sqlite", "Wissance.Pacman.Data.Sqlite\Wissance.Pacman.Data.Sqlite.csproj", "{8277181C-8D14-4CDF-98F0-48F6E7247D59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.Data.Postgres", "Wissance.Pacman.Data.Postgres\Wissance.Pacman.Data.Postgres.csproj", "{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{8277181C-8D14-4CDF-98F0-48F6E7247D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8277181C-8D14-4CDF-98F0-48F6E7247D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8277181C-8D14-4CDF-98F0-48F6E7247D59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,5 @@
+{
+  "Db": {
+    "ConnStr": "Host=127.0.0.1;Port=5432;Database=wissance_pacman_migrations;Username=developer;Password=123;"
+  }
+}
