@@ -11,6 +11,9 @@ namespace Wissance.Pacman.Data.Sqlite.Tests.Utils
             DbContextOptionsBuilder<PacmanDbContext> optionsBuilder = BuildOptionsBuilder<PacmanDbContext>(_connStr);
             DbContext = new PacmanDbContext(optionsBuilder.Options);
             DbContext.Database.Migrate();
+            string insertDataFilePath = Path.GetFullPath(InsertDataScript);
+            string insertQueries = File.ReadAllText(insertDataFilePath);
+            DbContext.Database.ExecuteSqlRaw(insertQueries);
         }
 
         public void Dispose()
@@ -47,6 +50,8 @@ namespace Wissance.Pacman.Data.Sqlite.Tests.Utils
         private const string ConnStrTemplate = "Data Source={0};";
         private const string SqliteDbFileTemplate = "wissance_pacman_{0}_db_tests.db;";
         private const string MigrationAssembly = "Wissance.Pacman.Data.Sqlite";
+        
+        private const string InsertDataScript = @"./TestData/test_data.sql";
 
         private string _connStr;
         private string _dbFile;
