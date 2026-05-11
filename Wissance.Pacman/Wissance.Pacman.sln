@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.Data.Sqlite
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.Data.Postgres", "Wissance.Pacman.Data.Postgres\Wissance.Pacman.Data.Postgres.csproj", "{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.WebAPI.Tests", "Wissance.Pacman.WebAPI.Tests\Wissance.Pacman.WebAPI.Tests.csproj", "{6EE4C66F-944E-4B19-94F3-AF23D7A6C812}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wissance.Pacman.Data.Sqlite.Tests", "Wissance.Pacman.Data.Sqlite.Tests\Wissance.Pacman.Data.Sqlite.Tests.csproj", "{76C0CF94-74C3-4F91-A35A-EAFC6714B7EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECCEFBDA-BC48-4169-8160-C4C2FCD2F3A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EE4C66F-944E-4B19-94F3-AF23D7A6C812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE4C66F-944E-4B19-94F3-AF23D7A6C812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE4C66F-944E-4B19-94F3-AF23D7A6C812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE4C66F-944E-4B19-94F3-AF23D7A6C812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76C0CF94-74C3-4F91-A35A-EAFC6714B7EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76C0CF94-74C3-4F91-A35A-EAFC6714B7EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76C0CF94-74C3-4F91-A35A-EAFC6714B7EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76C0CF94-74C3-4F91-A35A-EAFC6714B7EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
