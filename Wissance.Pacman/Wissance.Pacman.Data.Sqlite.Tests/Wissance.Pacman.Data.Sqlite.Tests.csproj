@@ -38,6 +38,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Wissance.Pacman.Data.Sqlite\Wissance.Pacman.Data.Sqlite.csproj" />
       <ProjectReference Include="..\Wissance.Pacman.Data\Wissance.Pacman.Data.csproj" />
+      <ProjectReference Include="..\Wissance.Pacman.Tests.Common\Wissance.Pacman.Tests.Common.csproj" />
     </ItemGroup>
 
 </Project>

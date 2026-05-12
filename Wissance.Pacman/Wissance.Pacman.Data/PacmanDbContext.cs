@@ -16,6 +16,30 @@ namespace Wissance.Pacman.Data
         {
             
         }
+        
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            try
+            {
+                return await base.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
