@@ -10,6 +10,7 @@ namespace Wissance.Pacman.Data.Mappers
         {
             builder.ToTable("package_owners");
             builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.Name).IsRequired().HasMaxLength(256);
             builder.Property(p => p.IsOrganization).IsRequired().HasDefaultValue(false);
             // target DB is Postgres and Sqlite    

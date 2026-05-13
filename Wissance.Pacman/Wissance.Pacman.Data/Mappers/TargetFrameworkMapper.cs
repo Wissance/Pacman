@@ -10,6 +10,7 @@ namespace Wissance.Pacman.Data.Mappers
         {
             builder.ToTable("target_frameworks");
             builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.Name).IsRequired().HasMaxLength(64);
         
             builder.HasIndex(p => p.Name).IsUnique();

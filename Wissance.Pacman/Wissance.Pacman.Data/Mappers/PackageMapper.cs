@@ -10,6 +10,7 @@ namespace Wissance.Pacman.Data.Mappers
         {
             builder.ToTable("packages");
             builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.Name).IsRequired().HasMaxLength(256);
             builder.Property(p => p.Description).HasMaxLength(4000);
             builder.Property(p => p.CreatedAt).IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");

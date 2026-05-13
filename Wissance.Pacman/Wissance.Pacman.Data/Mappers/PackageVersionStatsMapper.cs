@@ -10,6 +10,7 @@ namespace Wissance.Pacman.Data.Mappers
         {
             builder.ToTable("package_version_stats");
             builder.HasKey(s => s.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(s => s.PackageVersionId).IsRequired();
             builder.Property(s => s.Downloads).IsRequired().HasDefaultValue(0);
         
