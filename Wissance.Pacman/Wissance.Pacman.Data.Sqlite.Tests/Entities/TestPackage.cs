@@ -36,11 +36,13 @@ namespace Wissance.Pacman.Data.Sqlite.Tests.Entities
             Assert.True(result > 0);
         }
 
+        [Fact]
         public async Task TestUpdatePackageSuccessfully()
         {
             
         }
 
+        [Fact]
         public async Task TestDeletePackageSuccessfulФly()
         {
             
