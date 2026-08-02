@@ -61,5 +61,6 @@ namespace Wissance.Pacman.Data
         public DbSet<PackageOwner> PackageOwners { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TargetFramework> TargetFrameworks { get; set; }
+        public DbSet<ResourceMetadata> Resources { get; set; }
     }
 }
