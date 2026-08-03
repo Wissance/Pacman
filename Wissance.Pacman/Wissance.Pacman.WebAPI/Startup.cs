@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Wissance.Pacman.Data;
+using Wissance.Pacman.WebAPI.Configuration;
+
 namespace Wissance.Pacman.WebAPI
 {
     public class Startup
@@ -6,15 +10,15 @@ namespace Wissance.Pacman.WebAPI
         {
             Configuration = configuration;
             Environment = env;
-            // _config = Configuration.GetSection(ApplicationConfigSectionName).Get<ApplicationConfig>();
+            _config = Configuration.GetSection(ApplicationConfigSectionName).Get<ApplicationConfig>();
         }
         
         public void ConfigureServices(IServiceCollection services)
         {
-            //ConfigureDatabase(services);
-            //ConfigureLogging(services);
-            //ConfigureAppServices(services);
-            //ConfigureWebApi(services);
+            ConfigureDatabase(services);
+            ConfigureLogging(services);
+            ConfigureAppServices(services);
+            ConfigureWebApi(services);
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -34,6 +38,31 @@ namespace Wissance.Pacman.WebAPI
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
+
+        private void ConfigureDatabase(IServiceCollection services)
+        {
+            // ??? 
+            // services.ConfigureSqliteDbContext<PacmanDbContext>(_config.Database.ConnStr);
+            
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+            PacmanDbContext modelContext = serviceProvider.GetRequiredService<PacmanDbContext>();
+            modelContext.Database.Migrate();
+        }
+
+        private void ConfigureLogging(IServiceCollection services)
+        {
+            
+        }
+
+        private void ConfigureAppServices(IServiceCollection services)
+        {
+            
+        }
+        
+        private void ConfigureWebApi(IServiceCollection services)
+        {
+            
+        }
         
         private IConfiguration Configuration { get; }
         private IWebHostEnvironment Environment { get; }
@@ -41,6 +70,6 @@ namespace Wissance.Pacman.WebAPI
         private const string ApplicationConfigSectionName = "Application";
         private const string AppName = "Wissance.Pacman.WebAPI";
 
-        // private readonly ApplicationConfig _config;
+        private readonly ApplicationConfig _config;
     }
 }

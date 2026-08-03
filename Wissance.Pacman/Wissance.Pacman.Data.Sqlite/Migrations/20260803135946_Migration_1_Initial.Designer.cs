@@ -11,7 +11,7 @@ using Wissance.Pacman.Data;
 namespace Wissance.Pacman.Data.Sqlite.Migrations
 {
     [DbContext(typeof(PacmanDbContext))]
-    [Migration("20260509205456_Migration_1_Initial")]
+    [Migration("20260803135946_Migration_1_Initial")]
     partial class Migration_1_Initial
     {
         /// <inheritdoc />
@@ -276,6 +276,29 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .IsUnique();
 
                     b.ToTable("package_version_stats", (string)null);
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.ResourceMetadata", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Resources");
                 });
 
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Tag", b =>

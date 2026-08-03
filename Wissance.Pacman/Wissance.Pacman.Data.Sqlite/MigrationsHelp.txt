@@ -5,15 +5,13 @@ Using Nuget Package Manager Console you could easily create Migrations using Vis
 * Prior to running any commands don't forget to select DefaultProject in PackageManagerConsole and set them as s StartUp project
 
 1. Prior to any migrations run Update Database command to apply all migrations:
-Update-Database -Context {ContextClassName}
-Where:
-* {ContextClassName} - is a class deriving from DbContext
+`Update-Database -Context {ContextClassName}`
+* Where `{ContextClassName}` - is a class deriving from DbContext
 
-Example: in our project {ContextClassName} class is a ModelContext, therefore this command looks like:
-Update-Database -Context ModelContext
+Example: in our project `{ContextClassName}`` class is a `ModelContext`, therefore this command looks like:
+`Update-Database -Context ModelContext`
 
-2. Migration could be generated as follows:
-Add-Migration {name} -Context {ContextClassName} -Output {ProjectMigrationDir}
+2. Migration could be generated as follows: `Add-Migration {name} -Context {ContextClassName} -Output {ProjectMigrationDir}`
 Where:
 * {name} - is a name of migration
 * {ContextClassName} - is a class deriving from DbContext
@@ -27,7 +25,15 @@ Add-Migration Migration_1_Initial -Context ModelContext -Output Migrations
 
 ## Use Rider
 
-In Rider you have to use PowerShell, in powershell install dotnet-ef : dotnet tool update --global dotnet-ef --version=7.0.20  
-Select solution dir
+In `Rider` you have to use `PowerShell` (see Terminal tool in icons in the lower part of `Window`), in powershell install dotnet tools:
+```
+dotnet-ef : dotnet tool update --global dotnet-ef --version=7.0.20
+```
+There are following commands:
+
 1. Add Migration
-dotnet-ef migrations add Migration_1_Initial --context PacmanDbContext --project Wissance.Pacman.Data.Sqlite  --output-dir Migrations
+* Select solution dir
+* dotnet-ef migrations add Migration_1_Initial --context PacmanDbContext --project Wissance.Pacman.Data.Sqlite  --output-dir Migrations
+2. Remove Migration
+* Select `Wissance.Pacman.Data.Sqlite` dir - `cd .\Wissance.Pacman.Data.Sqlite`
+* Remove migration itself - `dotnet-ef migrations remove`
