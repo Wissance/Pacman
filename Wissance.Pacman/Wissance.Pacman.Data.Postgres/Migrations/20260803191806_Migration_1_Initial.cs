@@ -43,6 +43,20 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Resources",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Path = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    Comment = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resources", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tags",
                 columns: table => new
                 {
@@ -280,6 +294,9 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
 
             migrationBuilder.DropTable(
                 name: "packages_package_owners");
+
+            migrationBuilder.DropTable(
+                name: "Resources");
 
             migrationBuilder.DropTable(
                 name: "target_frameworks");

@@ -12,7 +12,7 @@ using Wissance.Pacman.Data;
 namespace Wissance.Pacman.Data.Postgres.Migrations
 {
     [DbContext(typeof(PacmanDbContext))]
-    [Migration("20260511081455_Migration_1_Initial")]
+    [Migration("20260803191806_Migration_1_Initial")]
     partial class Migration_1_Initial
     {
         /// <inheritdoc />
@@ -281,6 +281,29 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .IsUnique();
 
                     b.ToTable("package_version_stats", (string)null);
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.ResourceMetadata", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Resources");
                 });
 
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Tag", b =>

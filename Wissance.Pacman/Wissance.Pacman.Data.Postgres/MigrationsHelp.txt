@@ -33,7 +33,7 @@ There are following commands:
 
 1. Add Migration
 * Select solution dir
-* dotnet-ef migrations add Migration_1_Initial --context PacmanDbContext --project Wissance.Pacman.Data.Sqlite  --output-dir Migrations
+* dotnet-ef migrations add Migration_1_Initial --context PacmanDbContext --project Wissance.Pacman.Data.Postgres  --output-dir Migrations
 2. Remove Migration
-* Select `Wissance.Pacman.Data.Sqlite` dir - `cd .\Wissance.Pacman.Data.Sqlite`
+* Select `Wissance.Pacman.Data.Postgres` dir - `cd .\Wissance.Pacman.Data.Sqlite`
 * Remove migration itself - `dotnet-ef migrations remove`

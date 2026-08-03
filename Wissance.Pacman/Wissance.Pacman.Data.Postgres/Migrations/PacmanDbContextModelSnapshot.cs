@@ -280,6 +280,29 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                     b.ToTable("package_version_stats", (string)null);
                 });
 
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.ResourceMetadata", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Resources");
+                });
+
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Tag", b =>
                 {
                     b.Property<Guid>("Id")
