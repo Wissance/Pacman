@@ -13,6 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Wissance.Pacman.Data.Postgres\Wissance.Pacman.Data.Postgres.csproj" />
+      <ProjectReference Include="..\Wissance.Pacman.Data.Sqlite\Wissance.Pacman.Data.Sqlite.csproj" />
       <ProjectReference Include="..\Wissance.Pacman.Data\Wissance.Pacman.Data.csproj" />
       <ProjectReference Include="..\Wissance.Pacman.Dto\Wissance.Pacman.Dto.csproj" />
     </ItemGroup>

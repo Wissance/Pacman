@@ -292,7 +292,8 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -300,7 +301,7 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resources");
+                    b.ToTable("resources", (string)null);
                 });
 
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Tag", b =>

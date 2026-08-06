@@ -287,6 +287,7 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
 
                     b.Property<string>("Path")
                         .IsRequired()
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Type")
@@ -295,7 +296,7 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resources");
+                    b.ToTable("resources", (string)null);
                 });
 
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Tag", b =>

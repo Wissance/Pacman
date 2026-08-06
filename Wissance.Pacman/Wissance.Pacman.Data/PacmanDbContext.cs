@@ -52,6 +52,7 @@ namespace Wissance.Pacman.Data
             modelBuilder.Entity<PackageDependency>().Map();
             modelBuilder.Entity<PackageVersion>().Map();
             modelBuilder.Entity<Package>().Map();
+            modelBuilder.Entity<ResourceMetadata>().Map();
         }
 
         public DbSet<Package> Packages { get; set; }
