@@ -11,9 +11,15 @@ namespace Wissance.Pacman.Data.Postgres.Extensions
         {
             serviceCollection.AddDbContext<TContext>(options => options
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
-                .UseNpgsql(connectionString)
+                .UseNpgsql(connectionString, opts =>
+                {
+                    opts.CommandTimeout(600);
+                    opts.MigrationsAssembly(MigrationAssembly);
+                })
                 .UseLazyLoadingProxies());
             return serviceCollection;
         }
+        
+        private const string MigrationAssembly = "Wissance.Pacman.Data.Postgres";
     }
 }
