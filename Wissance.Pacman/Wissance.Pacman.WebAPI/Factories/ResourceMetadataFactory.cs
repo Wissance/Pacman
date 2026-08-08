@@ -12,7 +12,7 @@ namespace Wissance.Pacman.WebAPI.Factories
             {
                 //todo(UMV) combine a full path here
                 Id = entity.Path,
-                Comment = entity.Comment,
+                // Comment = entity.Comment,
                 Type = entity.Type
             };
         }

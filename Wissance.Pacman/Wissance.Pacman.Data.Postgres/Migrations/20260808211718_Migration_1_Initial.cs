@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Wissance.Pacman.Data.Sqlite.Migrations
+namespace Wissance.Pacman.Data.Postgres.Migrations
 {
     /// <inheritdoc />
     public partial class Migration_1_Initial : Migration
@@ -12,12 +12,23 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "localizations",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_localizations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "package_owners",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
-                    IsOrganization = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    IsOrganization = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     AdditionalInfo = table.Column<string>(type: "jsonb", nullable: false)
                 },
                 constraints: table =>
@@ -29,13 +40,13 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 name: "packages",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    DeprecatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    IsAvailable = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: true),
-                    AdminUserId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    Description = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    DeprecatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    IsAvailable = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    AdminUserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,25 +54,11 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "resources",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Path = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
-                    Type = table.Column<string>(type: "TEXT", nullable: false),
-                    Comment = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_resources", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "tags",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 96, nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(96)", maxLength: 96, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,8 +69,8 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 name: "target_frameworks",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,26 +78,67 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "localization_strings",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    LanguageCode = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
+                    Text = table.Column<string>(type: "character varying(4096)", maxLength: 4096, nullable: false),
+                    LocalizationId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_localization_strings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_localization_strings_localizations_LocalizationId",
+                        column: x => x.LocalizationId,
+                        principalTable: "localizations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "resources",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Path = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Type = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Version = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: false),
+                    CommentId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_resources", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_resources_localizations_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "localizations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "package_versions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PackageId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PackageVersionStatsId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Version = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
-                    Summary = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PackageId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PackageVersionStatsId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Version = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Summary = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: false),
                     ReleaseNotes = table.Column<string>(type: "text", nullable: false),
-                    Authors = table.Column<string>(type: "TEXT", maxLength: 1024, nullable: false),
-                    ProjectUrl = table.Column<string>(type: "TEXT", maxLength: 512, nullable: false),
-                    LicenseUrl = table.Column<string>(type: "TEXT", maxLength: 512, nullable: false),
-                    IconUrl = table.Column<string>(type: "TEXT", maxLength: 512, nullable: false),
-                    RepositoryUrl = table.Column<string>(type: "TEXT", maxLength: 512, nullable: false),
-                    RepositoryType = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
-                    PackageSize = table.Column<long>(type: "INTEGER", nullable: false),
-                    PackageHash = table.Column<string>(type: "TEXT", maxLength: 512, nullable: false),
-                    PackageHashAlgorithm = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
-                    IsListed = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: true),
-                    PublishedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
+                    Authors = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
+                    ProjectUrl = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    LicenseUrl = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    IconUrl = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    RepositoryUrl = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    RepositoryType = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
+                    PackageSize = table.Column<long>(type: "bigint", nullable: false),
+                    PackageHash = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    PackageHashAlgorithm = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
+                    IsListed = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    PublishedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
                 constraints: table =>
                 {
@@ -117,8 +155,8 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 name: "packages_package_owners",
                 columns: table => new
                 {
-                    OwnersId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PackageId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    OwnersId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PackageId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,13 +179,13 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 name: "package_dependencies",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PackageRepo = table.Column<string>(type: "TEXT", maxLength: 512, nullable: false),
-                    PackageId = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
-                    MinVersion = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
-                    MaxVersion = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
-                    TargetFrameworkId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PackageVersionId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PackageRepo = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    PackageId = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    MinVersion = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    MaxVersion = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    TargetFrameworkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PackageVersionId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -170,9 +208,9 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 name: "package_version_stats",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PackageVersionId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Downloads = table.Column<long>(type: "INTEGER", nullable: false, defaultValue: 0L)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PackageVersionId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Downloads = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L)
                 },
                 constraints: table =>
                 {
@@ -189,8 +227,8 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 name: "package_version_tags",
                 columns: table => new
                 {
-                    PackageVersionId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    TagsId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    PackageVersionId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TagsId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,6 +246,11 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_localization_strings_LocalizationId",
+                table: "localization_strings",
+                column: "LocalizationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_package_dependencies_PackageVersionId",
@@ -268,6 +311,11 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                 column: "PackageId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_resources_CommentId",
+                table: "resources",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tags_Name",
                 table: "tags",
                 column: "Name",
@@ -283,6 +331,9 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "localization_strings");
+
             migrationBuilder.DropTable(
                 name: "package_dependencies");
 
@@ -309,6 +360,9 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
 
             migrationBuilder.DropTable(
                 name: "package_owners");
+
+            migrationBuilder.DropTable(
+                name: "localizations");
 
             migrationBuilder.DropTable(
                 name: "packages");

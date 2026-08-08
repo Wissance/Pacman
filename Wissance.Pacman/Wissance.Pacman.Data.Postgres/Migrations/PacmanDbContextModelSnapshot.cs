@@ -52,6 +52,43 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                     b.ToTable("package_version_tags", (string)null);
                 });
 
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.Localization", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("localizations", (string)null);
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.LocalizationString", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
+
+                    b.Property<string>("LocalizationId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(4096)
+                        .HasColumnType("character varying(4096)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocalizationId");
+
+                    b.ToTable("localization_strings", (string)null);
+                });
+
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Package", b =>
                 {
                     b.Property<Guid>("Id")
@@ -286,7 +323,7 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Comment")
+                    b.Property<string>("CommentId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -297,9 +334,17 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
 
                     b.ToTable("resources", (string)null);
                 });
@@ -372,6 +417,17 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.LocalizationString", b =>
+                {
+                    b.HasOne("Wissance.Pacman.Data.Entities.Localization", "Loc")
+                        .WithMany("Localizations")
+                        .HasForeignKey("LocalizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Loc");
+                });
+
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.PackageDependency", b =>
                 {
                     b.HasOne("Wissance.Pacman.Data.Entities.PackageVersion", null)
@@ -408,6 +464,22 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .IsRequired();
 
                     b.Navigation("PackageVersion");
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.ResourceMetadata", b =>
+                {
+                    b.HasOne("Wissance.Pacman.Data.Entities.Localization", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Comment");
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.Localization", b =>
+                {
+                    b.Navigation("Localizations");
                 });
 
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Package", b =>

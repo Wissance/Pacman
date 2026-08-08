@@ -14,6 +14,14 @@ namespace Wissance.Pacman.Data.Entities
         /// </summary>
         public string Path { get; set; }
         public string Type { get; set; }
-        public string Comment { get; set; }
+        /// <summary>
+        ///     Version is an actual method version
+        /// </summary>
+        public string Version { get; set; }
+        /// <summary>
+        ///     Comment is localizable str
+        /// </summary>
+        public virtual Localization Comment { get; set; }
+        public string CommentId { get; set; }
     }
 }

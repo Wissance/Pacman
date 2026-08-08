@@ -53,6 +53,8 @@ namespace Wissance.Pacman.Data
             modelBuilder.Entity<PackageVersion>().Map();
             modelBuilder.Entity<Package>().Map();
             modelBuilder.Entity<ResourceMetadata>().Map();
+            modelBuilder.Entity<Localization>().Map();
+            modelBuilder.Entity<LocalizationString>().Map();
         }
 
         public DbSet<Package> Packages { get; set; }
@@ -63,5 +65,7 @@ namespace Wissance.Pacman.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TargetFramework> TargetFrameworks { get; set; }
         public DbSet<ResourceMetadata> Resources { get; set; }
+        public DbSet<Localization> Localizations { get; set; }
+        public DbSet<LocalizationString> LocalizationStrings { get; set; }
     }
 }

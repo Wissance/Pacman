@@ -5,6 +5,7 @@ using Wissance.Pacman.Data;
 using Wissance.Pacman.Data.Postgres.Extensions;
 using Wissance.Pacman.Data.Sqlite.Extensions;
 using Wissance.Pacman.WebAPI.Configuration;
+using Wissance.Pacman.WebAPI.Initializer;
 using Wissance.Pacman.WebAPI.Managers;
 
 namespace Wissance.Pacman.WebAPI
@@ -32,14 +33,13 @@ namespace Wissance.Pacman.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                /*app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                     c.SwaggerEndpoint("/swagger/v1/swagger.json", AppName);
+                });*/
             }
             
-            /*app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", AppName);
-            });*/
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
@@ -65,6 +65,7 @@ namespace Wissance.Pacman.WebAPI
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             PacmanDbContext modelContext = serviceProvider.GetRequiredService<PacmanDbContext>();
             modelContext.Database.Migrate();
+            DataInitializer.Init(modelContext);
         }
 
         private void ConfigureLogging(IServiceCollection services)

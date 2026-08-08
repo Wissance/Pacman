@@ -47,6 +47,43 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                     b.ToTable("package_version_tags", (string)null);
                 });
 
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.Localization", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("localizations", (string)null);
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.LocalizationString", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LocalizationId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(4096)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocalizationId");
+
+                    b.ToTable("localization_strings", (string)null);
+                });
+
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Package", b =>
                 {
                     b.Property<Guid>("Id")
@@ -281,7 +318,7 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Comment")
+                    b.Property<string>("CommentId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -292,9 +329,17 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Version")
+                        .IsRequired()
+                        .HasMaxLength(16)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
 
                     b.ToTable("resources", (string)null);
                 });
@@ -367,6 +412,17 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.LocalizationString", b =>
+                {
+                    b.HasOne("Wissance.Pacman.Data.Entities.Localization", "Loc")
+                        .WithMany("Localizations")
+                        .HasForeignKey("LocalizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Loc");
+                });
+
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.PackageDependency", b =>
                 {
                     b.HasOne("Wissance.Pacman.Data.Entities.PackageVersion", null)
@@ -403,6 +459,22 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .IsRequired();
 
                     b.Navigation("PackageVersion");
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.ResourceMetadata", b =>
+                {
+                    b.HasOne("Wissance.Pacman.Data.Entities.Localization", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Comment");
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.Localization", b =>
+                {
+                    b.Navigation("Localizations");
                 });
 
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Package", b =>
