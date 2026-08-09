@@ -12,8 +12,9 @@ namespace Wissance.Pacman.WebAPI.Factories
             {
                 //todo(UMV) combine a full path here
                 Id = entity.Path,
-                Type = entity.Type,
-                Comment = entity.Comment.Localizations.FirstOrDefault(l => string.Equals(l.LanguageCode.ToLower(), language.ToLower()))?.Text ?? "no localization string in db"
+                Type = $"{entity.Type}/{entity.Version}",
+                Comment = entity.Comment.Localizations.FirstOrDefault(l => string.Equals(l.LanguageCode.ToLower(), language.ToLower()))?.Text ??
+                          "no localization string in db"
             };
         }
     }

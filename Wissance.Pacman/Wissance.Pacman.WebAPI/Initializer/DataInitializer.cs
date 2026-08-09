@@ -42,6 +42,35 @@ namespace Wissance.Pacman.WebAPI.Initializer
                 dbContext.Resources.Add(packagesMethod);
                 saveRequired = true;
             }
+            
+            if (!dbContext.Resources.Any(m => string.Equals(m.Path, KnownNuGetResourceMethods.PackageMetadataMethodPath)))
+            {
+                ResourceMetadata packageMetadataMethod = new ResourceMetadata()
+                {
+                    Path = KnownNuGetResourceMethods.PackageMetadataMethodPath,
+                    Type = KnownNuGetResourceMethods.PackageMetadataMethodType,
+                    Version = KnownNuGetResourceMethods.InitialVersion,
+                    Comment = new Localization()
+                    {
+                        Id = KnownNuGetResourceMethods.PackageMetadataMethodPath,
+                        Localizations = new List<LocalizationString>()
+                        {
+                            new LocalizationString()
+                            {
+                                LanguageCode = "en",
+                                Text = "Method for getting package metadata (versions, dependancies)"
+                            },
+                            new LocalizationString()
+                            {
+                                LanguageCode = "ru",
+                                Text = "Метод для получения метаданных пакетов (версии, зависисмости)"
+                            }
+                        }
+                    }
+                };
+                dbContext.Resources.Add(packageMetadataMethod);
+                saveRequired = true;
+            }
 
             if (!dbContext.Resources.Any(m => string.Equals(m.Path, KnownNuGetResourceMethods.PublishMethodPath)))
             {
