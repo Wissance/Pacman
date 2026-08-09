@@ -418,3 +418,9 @@ FodyWeavers.xsd
 *.msp
 
 Wissance.Pacman/.idea/.idea.Wissance.Pacman/
+
+Wissance.Pacman/Wissance.Pacman.WebAPI/Wissance.Pacman.db
+
+Wissance.Pacman/Wissance.Pacman.WebAPI/Wissance.Pacman.db-shm
+
+Wissance.Pacman/Wissance.Pacman.WebAPI/Wissance.Pacman.db-wal

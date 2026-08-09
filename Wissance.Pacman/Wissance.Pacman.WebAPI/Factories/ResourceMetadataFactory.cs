@@ -6,14 +6,14 @@ namespace Wissance.Pacman.WebAPI.Factories
 
     internal static class ResourceMetadataFactory
     {
-        public static ResourceMetadataDto Create(ResourceMetadata entity)
+        public static ResourceMetadataDto Create(ResourceMetadata entity, string language)
         {
             return new ResourceMetadataDto()
             {
                 //todo(UMV) combine a full path here
                 Id = entity.Path,
-                // Comment = entity.Comment,
-                Type = entity.Type
+                Type = entity.Type,
+                Comment = entity.Comment.Localizations.FirstOrDefault(l => string.Equals(l.LanguageCode.ToLower(), language.ToLower()))?.Text ?? "no localization string in db"
             };
         }
     }

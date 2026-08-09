@@ -6,13 +6,13 @@ namespace Wissance.Pacman.WebAPI.Factories
 
     internal static class ServiceIndexFactory
     {
-        public static ServiceIndexDto Create(string version, IList<ResourceMetadata> resources)
+        public static ServiceIndexDto Create(string version, IList<ResourceMetadata> resources, string language="en")
         {
             return new ServiceIndexDto()
             {
                 Version = version,
                 Resources = resources != null
-                          ? resources.Select(r => ResourceMetadataFactory.Create(r)).ToList()
+                          ? resources.Select(r => ResourceMetadataFactory.Create(r, language)).ToList()
                           : new List<ResourceMetadataDto>()
             };
         }
