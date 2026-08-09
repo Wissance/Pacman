@@ -14,9 +14,11 @@ namespace Wissance.Pacman.WebAPI.Data
         // 3. search 
         public const string SearchMethodPath = "v3/package/search";
         public const string SearchMethodType = "SearchQueryService";
+        public const string SearchMethodCommentKey = "search_method_comment";
         // 4. search autocomplete
         public const string SearchAutocompleteMethodPath = "v3/package/search";
         public const string SearchAutocompleteMethodType = "SearchAutocompleteService";
+        public const string SearchAutocompleteMethodCommentKey = "search_autocomplete_method_comment";
         // publish package
         public const string PublishMethodPath = "v3/package/publish";
         public const string PublishMethodType = "PackagePublish";

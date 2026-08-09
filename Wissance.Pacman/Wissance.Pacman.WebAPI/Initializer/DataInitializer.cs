@@ -52,7 +52,7 @@ namespace Wissance.Pacman.WebAPI.Initializer
                     Version = KnownNuGetResourceMethods.InitialVersion,
                     Comment = new Localization()
                     {
-                        Id = KnownNuGetResourceMethods.PackageMetadataMethodPath,
+                        Id = KnownNuGetResourceMethods.PackageMetadataMethodCommentKey,
                         Localizations = new List<LocalizationString>()
                         {
                             new LocalizationString()
@@ -98,6 +98,64 @@ namespace Wissance.Pacman.WebAPI.Initializer
                     }
                 };
                 dbContext.Resources.Add(publishMethod);
+                saveRequired = true;
+            }
+
+            if (!dbContext.Resources.Any(m => string.Equals(m.Type, KnownNuGetResourceMethods.SearchMethodType)))
+            {
+                ResourceMetadata searchMethod = new ResourceMetadata()
+                {
+                    Path = KnownNuGetResourceMethods.SearchMethodPath,
+                    Type = KnownNuGetResourceMethods.SearchMethodType,
+                    Version = KnownNuGetResourceMethods.InitialVersion,
+                    Comment = new Localization()
+                    {
+                        Id = KnownNuGetResourceMethods.SearchMethodCommentKey,
+                        Localizations = new List<LocalizationString>()
+                        {
+                            new LocalizationString()
+                            {
+                                LanguageCode = "en",
+                                Text = "Method for package search by keywords"
+                            },
+                            new LocalizationString()
+                            {
+                                LanguageCode = "ru",
+                                Text = "Метод для поиска пакетов по ключевым словам"
+                            }
+                        }
+                    }
+                };
+                dbContext.Resources.Add(searchMethod);
+                saveRequired = true;
+            }
+            
+            if (!dbContext.Resources.Any(m => string.Equals(m.Type, KnownNuGetResourceMethods.SearchAutocompleteMethodType)))
+            {
+                ResourceMetadata searchAutocompletionMethod = new ResourceMetadata()
+                {
+                    Path = KnownNuGetResourceMethods.SearchAutocompleteMethodPath,
+                    Type = KnownNuGetResourceMethods.SearchAutocompleteMethodType,
+                    Version = KnownNuGetResourceMethods.InitialVersion,
+                    Comment = new Localization()
+                    {
+                        Id = KnownNuGetResourceMethods.SearchAutocompleteMethodCommentKey,
+                        Localizations = new List<LocalizationString>()
+                        {
+                            new LocalizationString()
+                            {
+                                LanguageCode = "en",
+                                Text = "Method for package name autocompletion"
+                            },
+                            new LocalizationString()
+                            {
+                                LanguageCode = "ru",
+                                Text = "Метод для автодополнения при вводе названия пакета"
+                            }
+                        }
+                    }
+                };
+                dbContext.Resources.Add(searchAutocompletionMethod);
                 saveRequired = true;
             }
 
