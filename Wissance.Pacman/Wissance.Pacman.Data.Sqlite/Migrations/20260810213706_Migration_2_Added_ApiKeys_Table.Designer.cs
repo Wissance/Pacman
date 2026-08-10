@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wissance.Pacman.Data;
 
@@ -10,9 +11,11 @@ using Wissance.Pacman.Data;
 namespace Wissance.Pacman.Data.Sqlite.Migrations
 {
     [DbContext(typeof(PacmanDbContext))]
-    partial class PacmanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260810213706_Migration_2_Added_ApiKeys_Table")]
+    partial class Migration_2_Added_ApiKeys_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.20");

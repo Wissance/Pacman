@@ -52,6 +52,38 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                     b.ToTable("package_version_tags", (string)null);
                 });
 
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.ApiKey", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTimeOffset?>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("KeyHash")
+                        .IsRequired()
+                        .HasMaxLength(4096)
+                        .HasColumnType("character varying(4096)");
+
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("api_keys", (string)null);
+                });
+
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.Localization", b =>
                 {
                     b.Property<string>("Id")
@@ -415,6 +447,17 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Wissance.Pacman.Data.Entities.ApiKey", b =>
+                {
+                    b.HasOne("Wissance.Pacman.Data.Entities.PackageOwner", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Wissance.Pacman.Data.Entities.LocalizationString", b =>

@@ -55,6 +55,7 @@ namespace Wissance.Pacman.Data
             modelBuilder.Entity<ResourceMetadata>().Map();
             modelBuilder.Entity<Localization>().Map();
             modelBuilder.Entity<LocalizationString>().Map();
+            modelBuilder.Entity<ApiKey>().Map();
         }
 
         public DbSet<Package> Packages { get; set; }
@@ -67,5 +68,6 @@ namespace Wissance.Pacman.Data
         public DbSet<ResourceMetadata> Resources { get; set; }
         public DbSet<Localization> Localizations { get; set; }
         public DbSet<LocalizationString> LocalizationStrings { get; set; }
+        public DbSet<ApiKey> ApiKeys { get; set; }
     }
 }
