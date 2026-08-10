@@ -7,6 +7,7 @@ using Wissance.Pacman.Data.Sqlite.Extensions;
 using Wissance.Pacman.WebAPI.Configuration;
 using Wissance.Pacman.WebAPI.Initializer;
 using Wissance.Pacman.WebAPI.Managers;
+using Wissance.WebApiToolkit.Core.Managers;
 
 namespace Wissance.Pacman.WebAPI
 {
@@ -75,7 +76,13 @@ namespace Wissance.Pacman.WebAPI
 
         private void ConfigureAppServices(IServiceCollection services)
         {
-            services.AddScoped<ServiceIndexManager>();
+            // add file management
+            services.AddScoped<IFileManager>(sp =>
+            {
+                ILoggerFactory loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+                return new WebFolderFileManager(
+                    new Dictionary<string, string>() {{_config.Storage.Name, _config.Storage.Src}}, loggerFactory);
+            });
         }
         
         private void ConfigureWebApi(IServiceCollection services)
@@ -86,7 +93,7 @@ namespace Wissance.Pacman.WebAPI
 
         private void ConfigureManagers(IServiceCollection services)
         {
-            
+            services.AddScoped<ServiceIndexManager>();
         }
 
         private DatabaseType DetermineDbType(string connStr)

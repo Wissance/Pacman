@@ -6,7 +6,7 @@ using Wissance.WebApiToolkit.Dto;
 
 namespace Wissance.Pacman.WebAPI.Controllers
 {
-    public class IndexController : ControllerBase
+    public sealed class IndexController : ControllerBase
     {
         public IndexController(ServiceIndexManager manager)
         {
