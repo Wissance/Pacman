@@ -11,7 +11,7 @@ using Wissance.Pacman.Data;
 namespace Wissance.Pacman.Data.Sqlite.Migrations
 {
     [DbContext(typeof(PacmanDbContext))]
-    [Migration("20260810213706_Migration_2_Added_ApiKeys_Table")]
+    [Migration("20260813123900_Migration_2_Added_ApiKeys_Table")]
     partial class Migration_2_Added_ApiKeys_Table
     {
         /// <inheritdoc />
@@ -65,7 +65,9 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("KeyHash")
                         .IsRequired()
@@ -76,6 +78,10 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KeyHash")
+                        .IsUnique()
+                        .HasDatabaseName("ix_key_hash");
 
                     b.HasIndex("OwnerId");
 

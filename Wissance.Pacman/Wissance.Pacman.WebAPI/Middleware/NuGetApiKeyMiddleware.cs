@@ -39,6 +39,7 @@ namespace Wissance.Pacman.WebAPI.Middleware
                     {
                         logger.LogError($"keyHash is null for the \"{extractedApiKey}\"");
                         context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                        await context.Response.WriteAsync("ApiKey key is bad.");
                         return;
                     }
                     ApiKey apiKey = await dbContext.ApiKeys.FirstOrDefaultAsync(k => string.Equals(k.KeyHash.ToLower(), keyHash.ToLower()));
@@ -46,8 +47,24 @@ namespace Wissance.Pacman.WebAPI.Middleware
                     if (apiKey == null)
                     {
                         // check active and expiration
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        await context.Response.WriteAsync("There are no such ApiKey");
+                        return;
+                    }
+
+                    if (!apiKey.IsActive)
+                    {
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        await context.Response.WriteAsync("ApiKey is inactive");
+                    }
+                    if (apiKey.ExpiresAt!= null && apiKey.ExpiresAt.Value.UtcTicks < DateTime.UtcNow.Ticks)
+                    {
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        await context.Response.WriteAsync("ApiKey is expired");
                     }
                 }
+                
+                await _next(context);
             }
             catch (Exception e)
             {

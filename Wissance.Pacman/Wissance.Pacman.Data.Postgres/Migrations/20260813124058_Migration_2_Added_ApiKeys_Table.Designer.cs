@@ -12,7 +12,7 @@ using Wissance.Pacman.Data;
 namespace Wissance.Pacman.Data.Postgres.Migrations
 {
     [DbContext(typeof(PacmanDbContext))]
-    [Migration("20260810213823_Migration_2_Added_ApiKeys_Table")]
+    [Migration("20260813124058_Migration_2_Added_ApiKeys_Table")]
     partial class Migration_2_Added_ApiKeys_Table
     {
         /// <inheritdoc />
@@ -70,7 +70,9 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("KeyHash")
                         .IsRequired()
@@ -81,6 +83,10 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KeyHash")
+                        .IsUnique()
+                        .HasDatabaseName("ix_key_hash");
 
                     b.HasIndex("OwnerId");
 

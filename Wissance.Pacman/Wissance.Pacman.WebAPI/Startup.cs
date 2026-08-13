@@ -7,6 +7,7 @@ using Wissance.Pacman.Data.Sqlite.Extensions;
 using Wissance.Pacman.WebAPI.Configuration;
 using Wissance.Pacman.WebAPI.Initializer;
 using Wissance.Pacman.WebAPI.Managers;
+using Wissance.Pacman.WebAPI.Middleware;
 using Wissance.WebApiToolkit.Core.Managers;
 
 namespace Wissance.Pacman.WebAPI
@@ -40,6 +41,8 @@ namespace Wissance.Pacman.WebAPI
                      c.SwaggerEndpoint("/swagger/v1/swagger.json", AppName);
                 });*/
             }
+
+            app.UseMiddleware<NuGetApiKeyMiddleware>();
             
             app.UseRouting();
 
@@ -88,12 +91,17 @@ namespace Wissance.Pacman.WebAPI
         private void ConfigureWebApi(IServiceCollection services)
         {
             ConfigureManagers(services);
-            services.AddControllers();
+            ConfigureControllers(services);
         }
 
         private void ConfigureManagers(IServiceCollection services)
         {
             services.AddScoped<ServiceIndexManager>();
+        }
+        
+        private void ConfigureControllers(IServiceCollection services)
+        {
+            services.AddControllers();
         }
 
         private DatabaseType DetermineDbType(string connStr)

@@ -14,6 +14,9 @@ namespace Wissance.Pacman.Data.Mappers
             builder.Property(p => p.KeyHash).IsRequired().HasMaxLength(4096);
             builder.Property(p => p.CreatedAt).IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(p => p.ExpiresAt).IsRequired(false);
+            builder.Property(p => p.IsActive).IsRequired().HasDefaultValue(true);
+            
+            builder.HasIndex(p => p.KeyHash).IsUnique().HasDatabaseName("ix_key_hash");
 
             builder.HasOne(p => p.Owner).WithMany().HasForeignKey(p => p.OwnerId);
         }

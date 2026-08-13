@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Wissance.Pacman.Data.Postgres.Migrations
+namespace Wissance.Pacman.Data.Sqlite.Migrations
 {
     /// <inheritdoc />
     public partial class Migration_2_Added_ApiKeys_Table : Migration
@@ -15,12 +15,12 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                 name: "api_keys",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    KeyHash = table.Column<string>(type: "character varying(4096)", maxLength: 4096, nullable: false),
-                    OwnerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    ExpiresAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    KeyHash = table.Column<string>(type: "TEXT", maxLength: 4096, nullable: false),
+                    OwnerId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    ExpiresAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
@@ -37,6 +37,12 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                 name: "IX_api_keys_OwnerId",
                 table: "api_keys",
                 column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_key_hash",
+                table: "api_keys",
+                column: "KeyHash",
+                unique: true);
         }
 
         /// <inheritdoc />

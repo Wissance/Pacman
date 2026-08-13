@@ -62,7 +62,9 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("KeyHash")
                         .IsRequired()
@@ -73,6 +75,10 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KeyHash")
+                        .IsUnique()
+                        .HasDatabaseName("ix_key_hash");
 
                     b.HasIndex("OwnerId");
 

@@ -67,7 +67,9 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("KeyHash")
                         .IsRequired()
@@ -78,6 +80,10 @@ namespace Wissance.Pacman.Data.Postgres.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KeyHash")
+                        .IsUnique()
+                        .HasDatabaseName("ix_key_hash");
 
                     b.HasIndex("OwnerId");
 
