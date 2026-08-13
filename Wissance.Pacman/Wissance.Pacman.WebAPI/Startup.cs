@@ -97,6 +97,7 @@ namespace Wissance.Pacman.WebAPI
         private void ConfigureManagers(IServiceCollection services)
         {
             services.AddScoped<ServiceIndexManager>();
+            services.AddScoped<PackageManager>();
         }
         
         private void ConfigureControllers(IServiceCollection services)
