@@ -6,9 +6,13 @@ namespace Wissance.Pacman.WebAPI.Initializer
 {
     public static class DataInitializer
     {
-        public static void Init(PacmanDbContext dbContext)
+        public static void Init(PacmanDbContext dbContext, bool isDevelopment)
         {
             InitResources(dbContext);
+            if (isDevelopment)
+            {
+                InitAdminPackageOwner(dbContext);
+            }
         }
 
         private static void InitResources(PacmanDbContext dbContext)
@@ -162,5 +166,34 @@ namespace Wissance.Pacman.WebAPI.Initializer
             if (saveRequired)
                 dbContext.SaveChanges();
         }
+
+        // TODO(umv): this MUST be offed after 1.0 is released
+        private static void InitAdminPackageOwner(PacmanDbContext dbContext)
+        {
+            if (!dbContext.PackageOwners.Any(p => p.Name == AdminPackageOwnerName))
+            {
+                PackageOwner admin = new PackageOwner()
+                {
+                    Name = AdminPackageOwnerName,
+                    AdditionalInfo = "",
+                    IsAdmin = true
+                };
+                dbContext.PackageOwners.Add(admin);
+                dbContext.SaveChanges();
+                // add key
+                ApiKey adminApiKey = new ApiKey()
+                {
+                    Owner = admin,
+                    IsActive = true,
+                    // corresponds to wissance-pacman-test
+                    KeyHash = "39340028fc9c0126cbdc7910650187f7490b00c5fa1f78a179ce69f967bb9117"
+                };
+                
+                dbContext.ApiKeys.Add(adminApiKey);
+                dbContext.SaveChanges();
+            }
+        }
+
+        private const string AdminPackageOwnerName = "admin";
     }
 }

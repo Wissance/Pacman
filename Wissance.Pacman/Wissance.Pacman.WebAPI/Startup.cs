@@ -69,7 +69,7 @@ namespace Wissance.Pacman.WebAPI
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             PacmanDbContext modelContext = serviceProvider.GetRequiredService<PacmanDbContext>();
             modelContext.Database.Migrate();
-            DataInitializer.Init(modelContext);
+            DataInitializer.Init(modelContext, IsDevelopmentHostingEnvironment());
         }
 
         private void ConfigureLogging(IServiceCollection services)
@@ -142,6 +142,11 @@ namespace Wissance.Pacman.WebAPI
                 return DatabaseType.SqlServer;
 
             return DatabaseType.Unknown;
+        }
+
+        private bool IsDevelopmentHostingEnvironment()
+        {
+            return string.Equals(Environment.EnvironmentName.ToLower(), "development");
         }
         
         private IConfiguration Configuration { get; }
