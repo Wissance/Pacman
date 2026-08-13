@@ -13,7 +13,7 @@ namespace Wissance.Pacman.WebAPI.Controllers
             _manager = manager;
         }
 
-        [HttpPut("{KnownNuGetResourceMethods.PublishMethodPath}/{packageId}/{version}")]
+        [HttpPut($"{KnownNuGetResourceMethods.PublishMethodPath}/{{packageId}}/{{version}}")]
         public async Task<PackageDto> PushPackageAsync(string packageId, string version, IFormFile packageFile)
         {
             OperationResultDto<PackageDto> result = await _manager.PublishAsync();
