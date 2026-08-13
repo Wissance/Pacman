@@ -220,6 +220,11 @@ namespace Wissance.Pacman.Data.Sqlite.Migrations
                         .IsRequired()
                         .HasColumnType("jsonb");
 
+                    b.Property<bool>("IsAdmin")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(false);
+
                     b.Property<bool>("IsOrganization")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")

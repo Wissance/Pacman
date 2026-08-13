@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wissance.Pacman.Data;
@@ -11,9 +12,11 @@ using Wissance.Pacman.Data;
 namespace Wissance.Pacman.Data.Postgres.Migrations
 {
     [DbContext(typeof(PacmanDbContext))]
-    partial class PacmanDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260813132242_Migration_3_Added_IsAdmin_To_PackageOwner")]
+    partial class Migration_3_Added_IsAdmin_To_PackageOwner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

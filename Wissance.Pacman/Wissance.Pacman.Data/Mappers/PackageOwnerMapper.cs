@@ -15,6 +15,7 @@ namespace Wissance.Pacman.Data.Mappers
             builder.Property(p => p.IsOrganization).IsRequired().HasDefaultValue(false);
             // target DB is Postgres and Sqlite    
             builder.Property(p => p.AdditionalInfo).HasColumnType("jsonb");
+            builder.Property(p => p.IsAdmin).IsRequired().HasDefaultValue(false);
         
             builder.HasIndex(p => p.Name);
         }

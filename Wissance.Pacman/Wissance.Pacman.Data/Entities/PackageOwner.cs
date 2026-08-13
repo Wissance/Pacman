@@ -10,6 +10,10 @@ namespace Wissance.Pacman.Data.Entities
         public Guid Id { get; set; }
         // Name is a virtual user Name (i.e. EvilLord666) or Organization (i.e. Wissance LLC)
         public string Name { get; set; }
+        /// <summary>
+        ///    Package owner is plain however there should be previledged users that could maintain packages of other users
+        /// </summary>
+        public bool IsAdmin { get; set; }
         public bool IsOrganization { get; set; }
         // Additional non-sql structured data, i.e. JSON
         public string AdditionalInfo { get; set; }
